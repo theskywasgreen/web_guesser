@@ -5,15 +5,16 @@ number = rand(100)
 
 get '/' do
   guess = params['guess'].to_i
-  message = check_guess(guess, number)
+  message = if params['guess']
+              check_guess(guess, number)
+            else
+              "Enter guess"
+            end
   bg_color = css_color(message)
   erb :index, :locals => {:number => number, :message => message, :guess => params['guess'].to_i, :bg_color => bg_color }
 end
 
 def check_guess(guess, number)
-  if guess.nil?
-    "Enter guess"
-  else
     if (guess - number) > 5
       "Way too high!"
     elsif (guess - number) < -5
@@ -23,9 +24,9 @@ def check_guess(guess, number)
     elsif guess < number
       "Too low!"
     else
+      correct = true
       "You got it!"
     end
-  end
 end
 
 def css_color(message)

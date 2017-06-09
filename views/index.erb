@@ -2,7 +2,7 @@
   <head>
   </head>
   <body style='background: <%= bg_color %>'>
-    <% if guess == number %>
+    <% if guess == number || params['cheat'] %>
       <p>THE SECRET NUMBER IS: <%= number %></p>
     <% end %>
     <p> <%= message %></p>
